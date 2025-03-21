@@ -13,7 +13,7 @@ export const addBudget = async (req: Request, res: Response, next: NextFunction)
 
 export const getAllBudget = async (req: Request, res: Response, next: NextFunction) => {
     const user = req.user?.id
-    const allBudget = await Budget.find({ userId: user })
+    const allBudget = await Budget.find({ userId: user }).populate("userId", "name email")
     if (!allBudget) {
         return next(new CustomError("Budget not available",404))
 

@@ -28,7 +28,7 @@ const transactionSchema = new mongoose.Schema<TransactionType>({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   amount: { type: Number, required: true },
   type: { type: String, enum: ['income', 'expense'], required: true },
-  category: { type: String, enum: Object.values(Category), required: true },
+  category: { type: String, required: true },
   date: { type: String },
   description: { type: String },
   receipt: { type: String }

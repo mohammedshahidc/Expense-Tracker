@@ -5,14 +5,14 @@ import { Category } from './transactionSchema';
 
 export interface BudgetType extends Document {
   userId: mongoose.Types.ObjectId;
-  category: Category;
+  category: string;
   amount: number;
   
 }
 
 const budgetSchema = new mongoose.Schema<BudgetType>({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  category: { type: String, enum: Object.values(Category), required: true },
+  category: { type: String, required: true },
   amount: { type: Number, required: true },
   
 },{timestamps:true});

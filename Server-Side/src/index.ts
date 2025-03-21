@@ -5,7 +5,7 @@ import userRoutes from './Routes/UserRoutes';
 import errorHandler from './Middlewares/ErrorHandler';
 import CustomError from './Utils/CustomError';
 import cookieParser from 'cookie-parser'
-
+import cors from 'cors'
 
 dotenv.config();
 const server = express()
@@ -24,8 +24,12 @@ mongoose.connect(process.env.MONGOOSECONNECTION)
         console.log("errpr:", err);
 
     })
-
-    server.use(express.json())
+server.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
+server.use(express.json())
 server.use(express.urlencoded({ extended: true }));
 
 server.use("/api/user", userRoutes)
