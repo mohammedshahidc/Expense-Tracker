@@ -4,12 +4,14 @@ import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 
 export const addTransaction = async (req: Request, res: Response, next: NextFunction) => {
-    const { receipt, description, category, date, type, amount } = req.body
+  console.log('hsdfvcgusv',req);
+  
+    const { description, category, date, type, amount } = req.body
     const user = req.user?.id
     if(!user || !description || !category || !date || !type || !amount){
         return next(new CustomError("All feilds are required",404))
     }
-    const newtransaction = new Transaction({ userId: user, amount, type, date, category, description, receipt })
+    const newtransaction = new Transaction({ userId: user, amount, type, date, category, description })
     await newtransaction.save()
     res.status(200).json({ error: false, message: "Transaction added succefully", data: newtransaction })
 }
@@ -35,7 +37,7 @@ export const getTransactionsById=async(req:Request,res:Response,next:NextFunctio
 }
 
 export const updateTransaction=async(req:Request,res:Response,next:NextFunction)=>{
-    const { receipt, description, category, date, type, amount } = req.body
+    const { description, category, date, type, amount } = req.body
     const{id}=req.params
     const user = req.user?.id
     if(!user || !description || !category || !date || !type || !amount){
@@ -43,7 +45,7 @@ export const updateTransaction=async(req:Request,res:Response,next:NextFunction)
     }
     const updatedTransaction = await Transaction.findByIdAndUpdate(
         id,
-        { userId: user, amount, type, date, category, description, receipt },
+        { userId: user, amount, type, date, category, description },
         { new: true }
 
     );

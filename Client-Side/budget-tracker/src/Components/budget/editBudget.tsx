@@ -11,6 +11,7 @@ const EditBudget = () => {
         getBudgetById(id)
     },[])
 
+
   return (
     <div>
       <BudgetForm error={error} loading={loading} EditBudget={EditBudget} budgetById={budgetById} />
